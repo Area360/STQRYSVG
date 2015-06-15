@@ -7,21 +7,32 @@
 //
 
 #import "ViewController.h"
+#import <UIImageView+STQRYSVG.h>
 
 @interface ViewController ()
+
+@property (nonatomic, copy) NSArray *svgAssetNames;
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.svgAssetNames = @[@"Happyface", @"fb", @"appleLogo", @"star", @"male"];
+    self.imageView.svgImageName = [self.svgAssetNames firstObject];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)nextBarButtonPressed:(UIBarButtonItem *)sender
+{
+    NSUInteger currentIndex = [self.svgAssetNames indexOfObject:self.imageView.svgImageName];
+    
+    // Wrap back to 0 once end of array has been reached.
+    NSUInteger nextIndex = currentIndex + 1 >= self.svgAssetNames.count ? 0 : currentIndex + 1;
+    
+    self.imageView.svgImageName = self.svgAssetNames[nextIndex];
 }
 
 @end
