@@ -1,0 +1,362 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		05A469CC1B2E68A000311D25 /* UIImage+STQRYSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A469C91B2E68A000311D25 /* UIImage+STQRYSVG.m */; };
+		05A469CD1B2E68A000311D25 /* UIImageView+STQRYSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A469CB1B2E68A000311D25 /* UIImageView+STQRYSVG.m */; };
+		05A469D11B2E68D900311D25 /* STQRYSVGModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A469D01B2E68D900311D25 /* STQRYSVGModel.m */; };
+		05A469D41B2E6BAA00311D25 /* STQRYSVGShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A469D31B2E6BAA00311D25 /* STQRYSVGShape.m */; };
+		05A46A0C1B2E8C1400311D25 /* libPods-PocketSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A46A051B2E8B9500311D25 /* libPods-PocketSVG.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		05A46A021B2E8B9500311D25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05A469FD1B2E8B9400311D25 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 326ABFC8FE4A5FA3113ADD5D;
+			remoteInfo = Pods;
+		};
+		05A46A041B2E8B9500311D25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05A469FD1B2E8B9400311D25 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BFB9BB33BC04F31A4C6EE83F;
+			remoteInfo = "Pods-PocketSVG";
+		};
+		05A46A0A1B2E8BFB00311D25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05A469FD1B2E8B9400311D25 /* Pods.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B1AAF64D53DEE39336E1390;
+			remoteInfo = Pods;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		05A4699F1B2E5F9D00311D25 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		05A469A11B2E5F9D00311D25 /* libSVGImages.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSVGImages.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		05A469C81B2E68A000311D25 /* UIImage+STQRYSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+STQRYSVG.h"; path = "Categories/UIImage+STQRYSVG.h"; sourceTree = "<group>"; };
+		05A469C91B2E68A000311D25 /* UIImage+STQRYSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+STQRYSVG.m"; path = "Categories/UIImage+STQRYSVG.m"; sourceTree = "<group>"; };
+		05A469CA1B2E68A000311D25 /* UIImageView+STQRYSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+STQRYSVG.h"; path = "Categories/UIImageView+STQRYSVG.h"; sourceTree = "<group>"; };
+		05A469CB1B2E68A000311D25 /* UIImageView+STQRYSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+STQRYSVG.m"; path = "Categories/UIImageView+STQRYSVG.m"; sourceTree = "<group>"; };
+		05A469CF1B2E68D900311D25 /* STQRYSVGModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STQRYSVGModel.h; path = Models/STQRYSVGModel.h; sourceTree = "<group>"; };
+		05A469D01B2E68D900311D25 /* STQRYSVGModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STQRYSVGModel.m; path = Models/STQRYSVGModel.m; sourceTree = "<group>"; };
+		05A469D21B2E6BAA00311D25 /* STQRYSVGShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STQRYSVGShape.h; path = Models/STQRYSVGShape.h; sourceTree = "<group>"; };
+		05A469D31B2E6BAA00311D25 /* STQRYSVGShape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STQRYSVGShape.m; path = Models/STQRYSVGShape.m; sourceTree = "<group>"; };
+		05A469FD1B2E8B9400311D25 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		05A4699E1B2E5F9D00311D25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05A46A0C1B2E8C1400311D25 /* libPods-PocketSVG.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		05A469981B2E5F9D00311D25 = {
+			isa = PBXGroup;
+			children = (
+				05A469A31B2E5F9D00311D25 /* SVGImages */,
+				05A469A21B2E5F9D00311D25 /* Products */,
+				05A469FD1B2E8B9400311D25 /* Pods.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		05A469A21B2E5F9D00311D25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				05A469A11B2E5F9D00311D25 /* libSVGImages.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		05A469A31B2E5F9D00311D25 /* SVGImages */ = {
+			isa = PBXGroup;
+			children = (
+				05A469C71B2E689000311D25 /* Categories */,
+				05A469CE1B2E68AF00311D25 /* Models */,
+			);
+			path = SVGImages;
+			sourceTree = "<group>";
+		};
+		05A469C71B2E689000311D25 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				05A469C81B2E68A000311D25 /* UIImage+STQRYSVG.h */,
+				05A469C91B2E68A000311D25 /* UIImage+STQRYSVG.m */,
+				05A469CA1B2E68A000311D25 /* UIImageView+STQRYSVG.h */,
+				05A469CB1B2E68A000311D25 /* UIImageView+STQRYSVG.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		05A469CE1B2E68AF00311D25 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				05A469CF1B2E68D900311D25 /* STQRYSVGModel.h */,
+				05A469D01B2E68D900311D25 /* STQRYSVGModel.m */,
+				05A469D21B2E6BAA00311D25 /* STQRYSVGShape.h */,
+				05A469D31B2E6BAA00311D25 /* STQRYSVGShape.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		05A469FE1B2E8B9400311D25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				05A46A031B2E8B9500311D25 /* libPods.a */,
+				05A46A051B2E8B9500311D25 /* libPods-PocketSVG.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		05A469A01B2E5F9D00311D25 /* SVGImages */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 05A469B51B2E5F9D00311D25 /* Build configuration list for PBXNativeTarget "SVGImages" */;
+			buildPhases = (
+				05A4699D1B2E5F9D00311D25 /* Sources */,
+				05A4699E1B2E5F9D00311D25 /* Frameworks */,
+				05A4699F1B2E5F9D00311D25 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				05A46A0B1B2E8BFB00311D25 /* PBXTargetDependency */,
+			);
+			name = SVGImages;
+			productName = SVGImages;
+			productReference = 05A469A11B2E5F9D00311D25 /* libSVGImages.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		05A469991B2E5F9D00311D25 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = STQRY;
+				TargetAttributes = {
+					05A469A01B2E5F9D00311D25 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+				};
+			};
+			buildConfigurationList = 05A4699C1B2E5F9D00311D25 /* Build configuration list for PBXProject "SVGImages" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 05A469981B2E5F9D00311D25;
+			productRefGroup = 05A469A21B2E5F9D00311D25 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 05A469FE1B2E8B9400311D25 /* Products */;
+					ProjectRef = 05A469FD1B2E8B9400311D25 /* Pods.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				05A469A01B2E5F9D00311D25 /* SVGImages */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		05A46A031B2E8B9500311D25 /* libPods.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPods.a;
+			remoteRef = 05A46A021B2E8B9500311D25 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05A46A051B2E8B9500311D25 /* libPods-PocketSVG.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-PocketSVG.a";
+			remoteRef = 05A46A041B2E8B9500311D25 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		05A4699D1B2E5F9D00311D25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05A469D41B2E6BAA00311D25 /* STQRYSVGShape.m in Sources */,
+				05A469D11B2E68D900311D25 /* STQRYSVGModel.m in Sources */,
+				05A469CC1B2E68A000311D25 /* UIImage+STQRYSVG.m in Sources */,
+				05A469CD1B2E68A000311D25 /* UIImageView+STQRYSVG.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		05A46A0B1B2E8BFB00311D25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Pods;
+			targetProxy = 05A46A0A1B2E8BFB00311D25 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		05A469B31B2E5F9D00311D25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		05A469B41B2E5F9D00311D25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		05A469B61B2E5F9D00311D25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/Pods/Headers/Public\"/**",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		05A469B71B2E5F9D00311D25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/Pods/Headers/Public\"/**",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		05A4699C1B2E5F9D00311D25 /* Build configuration list for PBXProject "SVGImages" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05A469B31B2E5F9D00311D25 /* Debug */,
+				05A469B41B2E5F9D00311D25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		05A469B51B2E5F9D00311D25 /* Build configuration list for PBXNativeTarget "SVGImages" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05A469B61B2E5F9D00311D25 /* Debug */,
+				05A469B71B2E5F9D00311D25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 05A469991B2E5F9D00311D25 /* Project object */;
+}
