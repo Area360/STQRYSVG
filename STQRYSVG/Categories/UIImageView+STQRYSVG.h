@@ -14,7 +14,7 @@
 @interface UIImageView (STQRYSVG)
 
 /// The name of the SVG file to load, excluding the file extension. Upon setting, a new image is created and set for this image view.
-@property (nonatomic, copy)   IBInspectable NSString *svgImageName;
+@property (nonatomic, copy) IBInspectable NSString *svgImageName;
 
 /// The desired size of the image. Upon setting, a new image is created and set for this image view.
 @property (nonatomic, assign) IBInspectable CGSize svgImageSize;

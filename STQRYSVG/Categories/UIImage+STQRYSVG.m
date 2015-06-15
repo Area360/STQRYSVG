@@ -48,10 +48,4 @@
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
-#pragma mark - CGPath helpers
-
-
-
-
-
 @end
