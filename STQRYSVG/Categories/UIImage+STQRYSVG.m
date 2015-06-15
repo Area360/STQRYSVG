@@ -26,8 +26,11 @@ static NSMutableDictionary *_stqry_cachedSVGPaths;
     NSParameterAssert(filename);
     
     CGPathRef path = [self stqry_cachedCGPathForKey:filename];
-    if (!path) {
+    if (!path) { // Not cached. Load from disk.
         path = [self stqry_loadSVGFileNamed:filename];
+    }
+    if (!path) { // Not found on disk. Bail.
+        return nil;
     }
     
     BOOL shouldScale = !CGSizeEqualToSize(targetSize, CGSizeZero);
@@ -53,7 +56,12 @@ static NSMutableDictionary *_stqry_cachedSVGPaths;
 
 + (CGPathRef)stqry_loadSVGFileNamed:(NSString *)filename
 {
-    NSURL         *url = [[NSBundle mainBundle] URLForResource:filename withExtension:@"svg"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:filename withExtension:@"svg"];
+    if (!url) {
+        NSLog(@"Could not find file named %@.svg in application's main bundle.", filename);
+        return nil;
+    }
+    
     STQRYSVGModel *svg = [[STQRYSVGModel alloc] initWithSVGData:[NSData dataWithContentsOfURL:url]];
     CGPathRef     path = svg.path;
     [self stqry_saveCachedCGPath:path forKey:filename];
