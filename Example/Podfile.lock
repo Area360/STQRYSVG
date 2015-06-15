@@ -1,0 +1,17 @@
+PODS:
+  - PocketSVG (0.6)
+  - STQRYSVG (0.0.1):
+    - PocketSVG (~> 0.6)
+
+DEPENDENCIES:
+  - STQRYSVG (from `../`)
+
+EXTERNAL SOURCES:
+  STQRYSVG:
+    :path: ../
+
+SPEC CHECKSUMS:
+  PocketSVG: cf122986a895bf81e8e2349e81350df51a9c6970
+  STQRYSVG: 61d389f6528915aebec0680e8d72674171c48dba
+
+COCOAPODS: 0.37.2
