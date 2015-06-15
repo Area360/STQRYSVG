@@ -40,7 +40,7 @@ STQRYSVGShapeType SVGShapeTypeFromNSString(NSString *type);
 @interface STQRYSVGShape : NSObject
 
 /// The raw attributes found in the XML tag.
-@property (nonatomic, strong, readonly) NSDictionary *attributes;
+@property (nonatomic, copy, readonly) NSDictionary *attributes;
 
 /// The type of shape this object is. This matches with what subclass is used, eg. STQRYSVGShapeTypeRect will have class type STQRYSVGShapeRect.
 @property (nonatomic, assign, readonly) STQRYSVGShapeType type;

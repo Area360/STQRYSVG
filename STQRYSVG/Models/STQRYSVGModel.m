@@ -13,6 +13,7 @@
 
 @property (nonatomic, copy)   NSArray        *shapes;
 @property (nonatomic, strong) NSMutableArray *parsingShapes;
+@property (nonatomic, strong) NSDictionary *groupAttributes;
 
 @end
 
@@ -62,9 +63,27 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-    STQRYSVGShape *shape = [STQRYSVGShape svgShapeWithTypeName:elementName attributes:attributeDict];
-    if (shape) {
-        [self.parsingShapes addObject:shape];
+    if ([elementName isEqualToString:@"g"]) {
+        self.groupAttributes = attributeDict;
+    } else {
+        if (self.groupAttributes) {
+            // Share group fill and stroke values to child shape elements.
+            NSMutableDictionary *sharedAttributes = [self.groupAttributes mutableCopy];
+            [sharedAttributes addEntriesFromDictionary:attributeDict];
+            attributeDict = sharedAttributes;
+        }
+        
+        STQRYSVGShape *shape = [STQRYSVGShape svgShapeWithTypeName:elementName attributes:attributeDict];
+        if (shape) {
+            [self.parsingShapes addObject:shape];
+        }
+    }
+}
+
+-(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+{
+    if ([elementName isEqualToString:@"g"]) {
+        self.groupAttributes = nil;
     }
 }
 

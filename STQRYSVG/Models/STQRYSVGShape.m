@@ -65,8 +65,14 @@ NS_INLINE Class ClassFromSVGShapeType(STQRYSVGShapeType type)
 {
     self = [super init];
     if (self) {
+        NSMutableDictionary *strippedAttributes = [attributes mutableCopy];
+        [attributes enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
+            if (!obj.length || [obj isEqualToString:@"none"]) {
+                [strippedAttributes removeObjectForKey:key];
+            }
+        }];
+        _attributes = strippedAttributes;
         _type = type;
-        _attributes = attributes;
     }
     return self;
 }
