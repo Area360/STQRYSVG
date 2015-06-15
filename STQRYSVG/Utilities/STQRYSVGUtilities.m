@@ -7,14 +7,53 @@
 //
 
 #import "STQRYSVGUtilities.h"
-#import "STQRYSVGModel.h"
 #import <CommonCrypto/CommonDigest.h>
 
 static NSMutableDictionary *_cachedSVGPaths;
 
 @implementation STQRYSVGUtilities
 
-+ (CGPathRef)loadSVGFileNamed:(NSString *)filename
+#pragma mark - Public
+
++ (STQRYSVGModel *)SVGModelNamed:(NSString *)filename
+{
+    STQRYSVGModel *svgModel = [self cachedSVGModelForKey:filename];
+    
+    if (!svgModel) {
+        svgModel = [self loadSVGModelFileNamed:filename];
+        [self saveCachedSVGModel:svgModel forKey:filename];
+    }
+    
+    return svgModel;
+}
+
++ (UIImage *)renderSVGModel:(STQRYSVGModel *)svgModel size:(CGSize)size
+{
+    NSParameterAssert(svgModel);
+    
+    CGAffineTransform transform;
+    CGAffineTransform *t = NULL;
+    
+    if (!CGSizeEqualToSize(size, CGSizeZero)) {
+        CGPathRef path = [svgModel combinedPathsWithTransform:NULL];
+        transform = [self scaledPath:path toSize:size];
+        t = &transform;
+        CGPathRelease(path);
+    }
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    
+    [svgModel renderInContext:UIGraphicsGetCurrentContext() transform:t];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
+#pragma mark - Private Helpers
+
++ (STQRYSVGModel *)loadSVGModelFileNamed:(NSString *)filename
 {
     NSURL *url = [[NSBundle mainBundle] URLForResource:filename withExtension:@"svg"];
     if (!url) {
@@ -22,34 +61,14 @@ static NSMutableDictionary *_cachedSVGPaths;
         return nil;
     }
     
-    STQRYSVGModel *svg = [[STQRYSVGModel alloc] initWithSVGData:[NSData dataWithContentsOfURL:url]];
-    CGPathRef     path = svg.path;
-    [self saveCachedCGPath:path forKey:filename];
-    
-    return path;
+    return [[STQRYSVGModel alloc] initWithSVGData:[NSData dataWithContentsOfURL:url]];
 }
 
-+ (CGPathRef)scalePath:(CGPathRef)path toSize:(CGSize)targetSize
++ (CGAffineTransform)scaledPath:(CGPathRef)path toSize:(CGSize)targetSize
 {
-    CGRect  boundingRect = CGPathGetPathBoundingBox(path);
+    CGRect boundingRect = CGPathGetPathBoundingBox(path);
     CGFloat scaleFactor = (boundingRect.size.width / boundingRect.size.height > targetSize.width / targetSize.height) ? (targetSize.width / boundingRect.size.width) : (targetSize.height / boundingRect.size.height);
-    CGAffineTransform transform = CGAffineTransformConcat(CGAffineTransformMakeScale(scaleFactor, scaleFactor), CGAffineTransformMakeTranslation(-boundingRect.origin.x, -boundingRect.origin.y));
-    return CGPathCreateCopyByTransformingPath(path, &transform);
-}
-
-+ (UIImage *)renderPath:(CGPathRef)path size:(CGSize)size
-{
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextSetGrayFillColor(context, 0.0, 1.0); // Black 100% alpha
-    CGContextAddPath(context, path);
-    CGContextEOFillPath(context);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
+    return CGAffineTransformConcat(CGAffineTransformMakeTranslation(-boundingRect.origin.x, -boundingRect.origin.y), CGAffineTransformMakeScale(scaleFactor, scaleFactor));
 }
 
 #pragma mark - Caching
@@ -66,12 +85,7 @@ static NSMutableDictionary *_cachedSVGPaths;
 
 +(void)didReceiveMemoryWarningNotification:(NSNotification *)notification
 {
-    NSMutableDictionary *cachedPaths = self.cachedSVGPaths;
-    for (NSString *key in cachedPaths) {
-        CGPathRef path = (__bridge CGPathRef)(cachedPaths[key]);
-        [cachedPaths removeObjectForKey:key];
-        CGPathRelease(path);
-    }
+    [self.cachedSVGPaths removeAllObjects];
 }
 
 + (NSString *)md5:(NSString *)string
@@ -83,14 +97,14 @@ static NSMutableDictionary *_cachedSVGPaths;
             r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15]];
 }
 
-+ (void)saveCachedCGPath:(CGPathRef)path forKey:(NSString *)key
++ (void)saveCachedSVGModel:(STQRYSVGModel *)model forKey:(NSString *)key
 {
-    self.cachedSVGPaths[[self md5:key]] = (__bridge id)(path);
+    self.cachedSVGPaths[[self md5:key]] = model;
 }
 
-+ (CGPathRef)cachedCGPathForKey:(NSString *)key
++ (STQRYSVGModel *)cachedSVGModelForKey:(NSString *)key
 {
-    return (__bridge CGPathRef)(self.cachedSVGPaths[[self md5:key]]);
+    return self.cachedSVGPaths[[self md5:key]];
 }
 
 @end

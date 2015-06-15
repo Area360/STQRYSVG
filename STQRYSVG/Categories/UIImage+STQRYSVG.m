@@ -8,7 +8,6 @@
 
 #import "UIImage+STQRYSVG.h"
 #import "STQRYSVGUtilities.h"
-#import "STQRYSVGModel.h"
 
 @implementation UIImage (STQRYSVG)
 
@@ -17,34 +16,12 @@
     return [self stqry_imageWithSVGNamed:filename size:CGSizeZero];
 }
 
-+ (instancetype)stqry_imageWithSVGNamed:(NSString *)filename size:(CGSize)targetSize
++ (instancetype)stqry_imageWithSVGNamed:(NSString *)filename size:(CGSize)size
 {
     NSParameterAssert(filename);
     
-    CGPathRef path = [STQRYSVGUtilities cachedCGPathForKey:filename];
-    if (!path) { // Not cached. Load from disk.
-        path = [STQRYSVGUtilities loadSVGFileNamed:filename];
-    }
-    if (!path) { // Not found on disk. Bail.
-        return nil;
-    }
-    
-    BOOL shouldScale = !CGSizeEqualToSize(targetSize, CGSizeZero);
-    CGSize imageSize;
-    
-    if (shouldScale) {
-        path = [STQRYSVGUtilities scalePath:path toSize:targetSize];
-        imageSize = targetSize;
-    } else {
-        imageSize = CGPathGetPathBoundingBox(path).size;
-    }
-    
-    UIImage *image = [STQRYSVGUtilities renderPath:path size:imageSize];
-    
-    if (shouldScale) {
-        CGPathRelease(path);
-    }
-    
+    STQRYSVGModel *svgModel = [STQRYSVGUtilities SVGModelNamed:filename];
+    UIImage *image = [STQRYSVGUtilities renderSVGModel:svgModel size:size];
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 

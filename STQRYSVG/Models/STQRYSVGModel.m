@@ -7,7 +7,6 @@
 //
 
 #import "STQRYSVGModel.h"
-#import "STQRYSVGShape.h"
 
 @interface STQRYSVGModel ()
 
@@ -39,13 +38,44 @@
     }
 }
 
-- (CGPathRef)path
+- (CGPathRef)combinedPathsWithTransform:(CGAffineTransform *)transform
 {
     CGMutablePathRef path = CGPathCreateMutable();
     for (STQRYSVGShape *shape in self.shapes) {
-        [shape addToPath:path];
+        if (shape.shouldStroke) {
+            CGPathRef strokedPath = [shape strokePathWithTransform:transform];
+            CGPathAddPath(path, NULL, strokedPath);
+            CGPathRelease(strokedPath);
+        } else {
+            [shape addToPath:path transform:transform];
+        }
     }
     return path;
+}
+
+- (void)renderInContext:(CGContextRef)context transform:(CGAffineTransform *)transform
+{
+    CGMutablePathRef fillPath = CGPathCreateMutable();
+    for (STQRYSVGShape *shape in self.shapes) {
+        CGPathRef subpath = [shape pathWithTransform:transform];
+        if (shape.shouldStroke) {
+            [shape strokePath:subpath inContext:context];
+        }
+        if (shape.shouldFill) {
+            CGPathAddPath(fillPath, NULL, subpath);
+        }
+    }
+    
+    CGContextAddPath(context, fillPath);
+    
+    STQRYSVGShape *shape = [self.shapes firstObject];
+    CGContextSetGrayFillColor(context, 0.0, shape.fillOpacity);
+    if (shape.usesEvenOddFillRule) {
+        CGContextEOFillPath(context);
+    } else {
+        CGContextFillPath(context);
+    }
+    CGPathRelease(fillPath);
 }
 
 #pragma mark - NSXMLParserDelegate
