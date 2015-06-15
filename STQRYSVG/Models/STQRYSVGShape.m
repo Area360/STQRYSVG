@@ -93,10 +93,12 @@ NS_INLINE Class ClassFromSVGShapeType(STQRYSVGShapeType type)
     
     CGRect rect = CGRectMake(x, y, width, height);
     
-    if (rx != 0.0 && ry != 0.0) {
-        CGPathAddRoundedRect(path, NULL, rect, rx, ry);
-    } else {
+    if (rx == 0.0 && ry == 0.0) {
         CGPathAddRect(path, NULL, rect);
+    } else {
+        ry = (ry == 0.0) ? rx : ry;
+        rx = (rx == 0.0) ? ry : rx;
+        CGPathAddRoundedRect(path, NULL, rect, rx, ry);
     }
 }
 
