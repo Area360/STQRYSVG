@@ -34,7 +34,7 @@ STQRYSVGShapeType SVGShapeTypeFromNSString(NSString *type)
 NS_INLINE Class ClassFromSVGShapeType(STQRYSVGShapeType type)
 {
     switch (type) {
-        case STQRYSVGShapeTypePath:     return [STQRYSVGShapeLine     class];
+        case STQRYSVGShapeTypePath:     return [STQRYSVGShapePath     class];
         case STQRYSVGShapeTypeCircle:   return [STQRYSVGShapeCircle   class];
         case STQRYSVGShapeTypeEllipse:  return [STQRYSVGShapeEllipse  class];
         case STQRYSVGShapeTypePolygon:  return [STQRYSVGShapePolygon  class];
