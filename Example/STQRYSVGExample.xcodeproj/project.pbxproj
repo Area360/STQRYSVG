@@ -18,6 +18,13 @@
 		054B33841B2ED08E00728F52 /* appleLogo.svg in Resources */ = {isa = PBXBuildFile; fileRef = 054B33811B2ED08E00728F52 /* appleLogo.svg */; };
 		054B33851B2ED08E00728F52 /* male.svg in Resources */ = {isa = PBXBuildFile; fileRef = 054B33821B2ED08E00728F52 /* male.svg */; };
 		054B33861B2ED08E00728F52 /* star.svg in Resources */ = {isa = PBXBuildFile; fileRef = 054B33831B2ED08E00728F52 /* star.svg */; };
+		054B33961B2F1B2900728F52 /* close.svg in Resources */ = {isa = PBXBuildFile; fileRef = 054B338F1B2F1B2800728F52 /* close.svg */; };
+		054B33971B2F1B2900728F52 /* location.svg in Resources */ = {isa = PBXBuildFile; fileRef = 054B33901B2F1B2800728F52 /* location.svg */; };
+		054B33981B2F1B2900728F52 /* marker.svg in Resources */ = {isa = PBXBuildFile; fileRef = 054B33911B2F1B2800728F52 /* marker.svg */; };
+		054B33991B2F1B2900728F52 /* recent.svg in Resources */ = {isa = PBXBuildFile; fileRef = 054B33921B2F1B2800728F52 /* recent.svg */; };
+		054B339A1B2F1B2900728F52 /* search.svg in Resources */ = {isa = PBXBuildFile; fileRef = 054B33931B2F1B2800728F52 /* search.svg */; };
+		054B339B1B2F1B2900728F52 /* walking.svg in Resources */ = {isa = PBXBuildFile; fileRef = 054B33941B2F1B2800728F52 /* walking.svg */; };
+		054B339C1B2F1B2900728F52 /* wheelchair.svg in Resources */ = {isa = PBXBuildFile; fileRef = 054B33951B2F1B2800728F52 /* wheelchair.svg */; };
 		E4AC29331BD2F59122B1668E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A345592631397F67BB0CA0AE /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +44,13 @@
 		054B33811B2ED08E00728F52 /* appleLogo.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = appleLogo.svg; path = Resources/appleLogo.svg; sourceTree = "<group>"; };
 		054B33821B2ED08E00728F52 /* male.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = male.svg; path = Resources/male.svg; sourceTree = "<group>"; };
 		054B33831B2ED08E00728F52 /* star.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = star.svg; path = Resources/star.svg; sourceTree = "<group>"; };
+		054B338F1B2F1B2800728F52 /* close.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = close.svg; path = Resources/close.svg; sourceTree = "<group>"; };
+		054B33901B2F1B2800728F52 /* location.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = location.svg; path = Resources/location.svg; sourceTree = "<group>"; };
+		054B33911B2F1B2800728F52 /* marker.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = marker.svg; path = Resources/marker.svg; sourceTree = "<group>"; };
+		054B33921B2F1B2800728F52 /* recent.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = recent.svg; path = Resources/recent.svg; sourceTree = "<group>"; };
+		054B33931B2F1B2800728F52 /* search.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = search.svg; path = Resources/search.svg; sourceTree = "<group>"; };
+		054B33941B2F1B2800728F52 /* walking.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = walking.svg; path = Resources/walking.svg; sourceTree = "<group>"; };
+		054B33951B2F1B2800728F52 /* wheelchair.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = wheelchair.svg; path = Resources/wheelchair.svg; sourceTree = "<group>"; };
 		056611201F718693AAF45B01 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A345592631397F67BB0CA0AE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3B64E726E131B34185F74D4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -100,6 +114,13 @@
 		054B337C1B2EC34200728F52 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				054B338F1B2F1B2800728F52 /* close.svg */,
+				054B33901B2F1B2800728F52 /* location.svg */,
+				054B33911B2F1B2800728F52 /* marker.svg */,
+				054B33921B2F1B2800728F52 /* recent.svg */,
+				054B33931B2F1B2800728F52 /* search.svg */,
+				054B33941B2F1B2800728F52 /* walking.svg */,
+				054B33951B2F1B2800728F52 /* wheelchair.svg */,
 				054B33811B2ED08E00728F52 /* appleLogo.svg */,
 				054B33821B2ED08E00728F52 /* male.svg */,
 				054B33831B2ED08E00728F52 /* star.svg */,
@@ -185,14 +206,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				054B33981B2F1B2900728F52 /* marker.svg in Resources */,
+				054B33991B2F1B2900728F52 /* recent.svg in Resources */,
+				054B339A1B2F1B2900728F52 /* search.svg in Resources */,
+				054B33961B2F1B2900728F52 /* close.svg in Resources */,
 				054B33861B2ED08E00728F52 /* star.svg in Resources */,
 				054B33801B2ECD4600728F52 /* fb.svg in Resources */,
+				054B33971B2F1B2900728F52 /* location.svg in Resources */,
 				054B337B1B2EC33A00728F52 /* Happyface.svg in Resources */,
 				054B33841B2ED08E00728F52 /* appleLogo.svg in Resources */,
 				054B33591B2EBDE500728F52 /* Main.storyboard in Resources */,
 				054B335E1B2EBDE500728F52 /* LaunchScreen.xib in Resources */,
 				054B33851B2ED08E00728F52 /* male.svg in Resources */,
+				054B339B1B2F1B2900728F52 /* walking.svg in Resources */,
 				054B335B1B2EBDE500728F52 /* Images.xcassets in Resources */,
+				054B339C1B2F1B2900728F52 /* wheelchair.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
