@@ -71,10 +71,10 @@ static NSMutableDictionary *_stqry_cachedSVGPaths;
 
 + (CGPathRef)stqry_scalePath:(CGPathRef)path toSize:(CGSize)targetSize
 {
-    CGSize  pathSize = CGPathGetPathBoundingBox(path).size;
-    CGFloat scaleFactor = (pathSize.width / pathSize.height > targetSize.width / targetSize.height) ? (targetSize.width / pathSize.width) : (targetSize.height / pathSize.height);
-    CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scaleFactor, scaleFactor);
-    return CGPathCreateCopyByTransformingPath(path, &scaleTransform);
+    CGRect  boundingRect = CGPathGetPathBoundingBox(path);
+    CGFloat scaleFactor = (boundingRect.size.width / boundingRect.size.height > targetSize.width / targetSize.height) ? (targetSize.width / boundingRect.size.width) : (targetSize.height / boundingRect.size.height);
+    CGAffineTransform transform = CGAffineTransformConcat(CGAffineTransformMakeScale(scaleFactor, scaleFactor), CGAffineTransformMakeTranslation(-boundingRect.origin.x, -boundingRect.origin.y));
+    return CGPathCreateCopyByTransformingPath(path, &transform);
 }
 
 + (UIImage *)stqry_renderPath:(CGPathRef)path size:(CGSize)size
