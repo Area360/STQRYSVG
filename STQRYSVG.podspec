@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
     s.authors                = { 'Jake' => 'jake.bellamy@stqry.com' }
     s.license                = 'BSD'
     s.source                 = { :git => '', :tag => s.version }
-    s.source_files           = 'SVGImages/**/*.{h,m}'
+    s.source_files           = 'STQRYSVG/**/*.{h,m}'
     s.requires_arc           = true
 
     s.ios.dependency 'PocketSVG', '~> 0.6'
