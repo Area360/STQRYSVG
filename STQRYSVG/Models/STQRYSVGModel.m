@@ -38,50 +38,35 @@
     }
 }
 
-- (CGPathRef)combinedPathsWithTransform:(CGAffineTransform *)transform
+- (CGPathRef)combinedPathsWithTransform:(CGAffineTransform *)sharedTransform
 {
-    CGAffineTransform *originalTransform = transform;
     CGMutablePathRef path = CGPathCreateMutable();
     
     for (STQRYSVGShape *shape in self.shapes) {
-        // Apply shape transform if needed.
-        transform = originalTransform;
-        CGAffineTransform shapeTransform = shape.transform;
-        CGAffineTransform concatTransform;
-        if (!CGAffineTransformIsIdentity(shapeTransform) && transform != NULL) {
-            concatTransform = CGAffineTransformConcat(shapeTransform, *transform);
-            transform = &concatTransform;
-        }
+        CGAffineTransform transform = [self concatenateTransformsIfNeeded:shape.transform with:sharedTransform];
+        CGAffineTransform *transformPtr = CGAffineTransformIsIdentity(transform) ? NULL : &transform;
         
         // Append path.
         if (shape.shouldStroke) {
-            CGPathRef strokedPath = [shape strokePathWithTransform:transform];
+            CGPathRef strokedPath = [shape strokePathWithTransform:transformPtr];
             CGPathAddPath(path, NULL, strokedPath);
             CGPathRelease(strokedPath);
         } else {
-            [shape addToPath:path transform:transform];
+            [shape addToPath:path transform:transformPtr];
         }
     }
     return path;
 }
 
-- (void)renderInContext:(CGContextRef)context transform:(CGAffineTransform *)transform
+- (void)renderInContext:(CGContextRef)context transform:(CGAffineTransform *)sharedTransform
 {
-    CGAffineTransform *originalTransform = transform;
     CGMutablePathRef fillPath = CGPathCreateMutable();
     
     for (STQRYSVGShape *shape in self.shapes) {
+        CGAffineTransform transform = [self concatenateTransformsIfNeeded:shape.transform with:sharedTransform];
+        CGAffineTransform *transformPtr = CGAffineTransformIsIdentity(transform) ? NULL : &transform;
         
-        // Apply shape transform if needed.
-        transform = originalTransform;
-        CGAffineTransform shapeTransform = shape.transform;
-        CGAffineTransform concatTransform;
-        if (!CGAffineTransformIsIdentity(shapeTransform) && transform != NULL) {
-            concatTransform = CGAffineTransformConcat(shapeTransform, *transform);
-            transform = &concatTransform;
-        }
-        
-        CGPathRef subpath = [shape pathWithTransform:transform];
+        CGPathRef subpath = [shape pathWithTransform:transformPtr];
         if (shape.shouldStroke) {
             [shape strokePath:subpath inContext:context];
         }
@@ -100,6 +85,13 @@
         CGContextFillPath(context);
     }
     CGPathRelease(fillPath);
+}
+
+#pragma mark - Private Helper
+
+- (CGAffineTransform)concatenateTransformsIfNeeded:(CGAffineTransform)t1 with:(CGAffineTransform *)t2
+{
+    return t2 ? CGAffineTransformConcat(t1, *t2) : t1;
 }
 
 #pragma mark - NSXMLParserDelegate
