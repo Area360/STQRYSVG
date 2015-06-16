@@ -21,7 +21,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.svgAssetNames = @[@"Happyface", @"fb", @"appleLogo", @"star", @"male", @"atom", @"close", @"location", @"marker", @"recent", @"search", @"walking", @"wheelchair"];
+    self.svgAssetNames = @[@"Happyface", @"fb", @"appleLogo", @"star", @"male", @"atom", @"close", @"location", @"marker", @"recent", @"search", @"walking", @"wheelchair", @"polyline"];
     self.imageView.svgImageName = [self.svgAssetNames firstObject];
 }
 
