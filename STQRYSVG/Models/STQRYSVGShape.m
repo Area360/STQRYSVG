@@ -7,6 +7,7 @@
 //
 
 #import "STQRYSVGShape.h"
+#import "STQRYSVGTransform.h"
 #import <PocketSVG.h>
 
 STQRYSVGShapeType SVGShapeTypeFromNSString(NSString *type)
@@ -138,6 +139,16 @@ NS_INLINE Class ClassFromSVGShapeType(STQRYSVGShapeType type)
 {
     NSNumber *miterLimit = self.attributes[@"stroke-miterlimit"];
     return miterLimit ? [miterLimit doubleValue] : 4.0;
+}
+
+- (CGAffineTransform)transform
+{
+    NSString *attribute = self.attributes[@"transform"];
+    if (attribute) {
+        return [STQRYSVGTransform combinedTransformFromTransformAttributeString:attribute].affineTransform;
+    } else {
+        return CGAffineTransformIdentity;
+    }
 }
 
 - (void)strokePath:(CGPathRef)path inContext:(CGContextRef)context

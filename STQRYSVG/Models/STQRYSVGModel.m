@@ -40,8 +40,20 @@
 
 - (CGPathRef)combinedPathsWithTransform:(CGAffineTransform *)transform
 {
+    CGAffineTransform *originalTransform = transform;
     CGMutablePathRef path = CGPathCreateMutable();
+    
     for (STQRYSVGShape *shape in self.shapes) {
+        // Apply shape transform if needed.
+        transform = originalTransform;
+        CGAffineTransform shapeTransform = shape.transform;
+        CGAffineTransform concatTransform;
+        if (!CGAffineTransformIsIdentity(shapeTransform) && transform != NULL) {
+            concatTransform = CGAffineTransformConcat(shapeTransform, *transform);
+            transform = &concatTransform;
+        }
+        
+        // Append path.
         if (shape.shouldStroke) {
             CGPathRef strokedPath = [shape strokePathWithTransform:transform];
             CGPathAddPath(path, NULL, strokedPath);
@@ -55,8 +67,20 @@
 
 - (void)renderInContext:(CGContextRef)context transform:(CGAffineTransform *)transform
 {
+    CGAffineTransform *originalTransform = transform;
     CGMutablePathRef fillPath = CGPathCreateMutable();
+    
     for (STQRYSVGShape *shape in self.shapes) {
+        
+        // Apply shape transform if needed.
+        transform = originalTransform;
+        CGAffineTransform shapeTransform = shape.transform;
+        CGAffineTransform concatTransform;
+        if (!CGAffineTransformIsIdentity(shapeTransform) && transform != NULL) {
+            concatTransform = CGAffineTransformConcat(shapeTransform, *transform);
+            transform = &concatTransform;
+        }
+        
         CGPathRef subpath = [shape pathWithTransform:transform];
         if (shape.shouldStroke) {
             [shape strokePath:subpath inContext:context];

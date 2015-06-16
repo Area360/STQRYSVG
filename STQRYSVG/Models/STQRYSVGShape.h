@@ -152,4 +152,11 @@ STQRYSVGShapeType SVGShapeTypeFromNSString(NSString *type);
  */
 - (CGFloat)miterLimit;
 
+/**
+ *  The transform that should be applied to this shape.
+ *
+ *  @return The CGAffineTransform mapping which transforms to apply to this shape when drawing. If no transforms should be applied then this is the identity transform.
+ */
+- (CGAffineTransform)transform;
+
 @end
