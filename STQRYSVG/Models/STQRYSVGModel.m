@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy)   NSArray        *shapes;
 @property (nonatomic, strong) NSMutableArray *parsingShapes;
-@property (nonatomic, strong) NSDictionary *groupAttributes;
+@property (nonatomic, strong) NSMutableArray *groups;
 
 @end
 
@@ -94,31 +94,35 @@
     return t2 ? CGAffineTransformConcat(t1, *t2) : t1;
 }
 
+- (NSDictionary *)combineGroupAttributesFromDictionary:(NSDictionary *)attributes
+{
+    NSMutableDictionary *sharedAttributes = [[self.groups lastObject] mutableCopy];
+    [sharedAttributes addEntriesFromDictionary:attributes];
+    return sharedAttributes ?: attributes;
+}
+
 #pragma mark - NSXMLParserDelegate
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser
 {
     self.parsingShapes = [NSMutableArray array];
+    self.groups        = [NSMutableArray array];
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
     self.shapes = self.parsingShapes;
     self.parsingShapes = nil;
+    self.groups = nil;
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-    if ([elementName isEqualToString:@"g"]) {
-        self.groupAttributes = attributeDict;
+    if ([elementName isEqualToString:@"g"] || [elementName isEqualToString:@"svg"]) {
+        attributeDict = [self combineGroupAttributesFromDictionary:attributeDict];
+        [self.groups addObject:attributeDict];
     } else {
-        if (self.groupAttributes) {
-            // Share group fill and stroke values to child shape elements.
-            NSMutableDictionary *sharedAttributes = [self.groupAttributes mutableCopy];
-            [sharedAttributes addEntriesFromDictionary:attributeDict];
-            attributeDict = sharedAttributes;
-        }
-        
+        attributeDict = [self combineGroupAttributesFromDictionary:attributeDict];
         STQRYSVGShape *shape = [STQRYSVGShape svgShapeWithTypeName:elementName attributes:attributeDict];
         if (shape) {
             [self.parsingShapes addObject:shape];
@@ -128,8 +132,8 @@
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    if ([elementName isEqualToString:@"g"]) {
-        self.groupAttributes = nil;
+    if ([elementName isEqualToString:@"g"] || [elementName isEqualToString:@"svg"]) {
+        [self.groups removeLastObject];
     }
 }
 
