@@ -9,7 +9,36 @@
 #import "STQRYSVGUtilities.h"
 #import <CommonCrypto/CommonDigest.h>
 
-static NSMutableDictionary *_cachedSVGPaths;
+static NSMutableDictionary * STQRYCachedSVGPaths()
+{
+    static NSMutableDictionary *_cachedSVGPaths;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _cachedSVGPaths = [NSMutableDictionary dictionary];
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * __unused notification) {
+            [_cachedSVGPaths removeAllObjects];
+        }];
+    });
+    return _cachedSVGPaths;
+}
+
+static NSCache * STQRYCachedRenderedImages()
+{
+    static NSCache *_cachedRenderedImages;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _cachedRenderedImages = [NSCache new];
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * __unused notification) {
+            [_cachedRenderedImages removeAllObjects];
+        }];
+    });
+    return _cachedRenderedImages;
+}
+
+NS_INLINE NSString * STQRYCachedRenderedImagesKey(STQRYSVGModel *model, CGSize size)
+{
+    return [NSString stringWithFormat:@"%@-%.0f-%.0f", model.name, size.width, size.height];
+}
 
 @implementation STQRYSVGUtilities
 
@@ -17,11 +46,11 @@ static NSMutableDictionary *_cachedSVGPaths;
 
 + (STQRYSVGModel *)SVGModelNamed:(NSString *)filename
 {
-    STQRYSVGModel *svgModel = [self cachedSVGModelForKey:filename];
+    STQRYSVGModel *svgModel = STQRYCachedSVGPaths()[filename];
     
     if (!svgModel) {
         svgModel = [self loadSVGModelFileNamed:filename];
-        [self saveCachedSVGModel:svgModel forKey:filename];
+        STQRYCachedSVGPaths()[filename] = svgModel;
     }
     
     return svgModel;
@@ -30,6 +59,12 @@ static NSMutableDictionary *_cachedSVGPaths;
 + (UIImage *)renderSVGModel:(STQRYSVGModel *)svgModel size:(CGSize)size
 {
     NSParameterAssert(svgModel);
+    
+    NSString *cacheKey = STQRYCachedRenderedImagesKey(svgModel, size);
+    UIImage *cachedImage = [STQRYCachedRenderedImages() objectForKey:cacheKey];
+    if (cachedImage) {
+        return cachedImage;
+    }
     
     CGAffineTransform transform;
     CGAffineTransform *t = NULL;
@@ -52,6 +87,7 @@ static NSMutableDictionary *_cachedSVGPaths;
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    [STQRYCachedRenderedImages() setObject:image forKey:cacheKey];
     
     return image;
 }
@@ -66,7 +102,7 @@ static NSMutableDictionary *_cachedSVGPaths;
         return nil;
     }
     
-    return [[STQRYSVGModel alloc] initWithSVGData:[NSData dataWithContentsOfURL:url]];
+    return [[STQRYSVGModel alloc] initWithName:filename data:[NSData dataWithContentsOfURL:url]];
 }
 
 + (CGFloat)aspectFitScaleFactorForSize:(CGSize)size1 scalingToSize:(CGSize)size2
@@ -80,43 +116,6 @@ static NSMutableDictionary *_cachedSVGPaths;
     CGFloat x = boundingRect.origin.x, y = boundingRect.origin.y;
     CGFloat scale = [self aspectFitScaleFactorForSize:boundingRect.size scalingToSize:targetSize];
     return CGAffineTransformConcat(CGAffineTransformMakeTranslation(-x, -y), CGAffineTransformMakeScale(scale, scale));
-//    return CGAffineTransformScale(CGAffineTransformMakeTranslation(-x, -y), scale, scale);
-}
-
-#pragma mark - Caching
-
-+ (NSMutableDictionary *)cachedSVGPaths
-{
-    if (!_cachedSVGPaths) {
-        _cachedSVGPaths = [NSMutableDictionary dictionary];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningNotification:)
-                                                     name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-    }
-    return _cachedSVGPaths;
-}
-
-+(void)didReceiveMemoryWarningNotification:(NSNotification *)notification
-{
-    [self.cachedSVGPaths removeAllObjects];
-}
-
-+ (NSString *)md5:(NSString *)string
-{
-    const char *cStr = [string UTF8String];
-    unsigned char r[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(cStr, (int)strlen(cStr), r);
-    return [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-            r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15]];
-}
-
-+ (void)saveCachedSVGModel:(STQRYSVGModel *)model forKey:(NSString *)key
-{
-    self.cachedSVGPaths[[self md5:key]] = model;
-}
-
-+ (STQRYSVGModel *)cachedSVGModelForKey:(NSString *)key
-{
-    return self.cachedSVGPaths[[self md5:key]];
 }
 
 @end

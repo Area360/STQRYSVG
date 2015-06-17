@@ -18,14 +18,18 @@
 /// Array of STQRYSVGShape objects, created from parsing the XML during initialization.
 @property (nonatomic, copy, readonly) NSArray *shapes;
 
+/// The name of this model.
+@property (nonatomic, copy, readonly) NSString *name;
+
 /**
  *  Initializes a new SVG model with XML data.
  *
+ *  @param name    The name of this model.
  *  @param svgData The SVG to parse to create the instructions needed to render.
  *
  *  @return An initialized instance, or nil if there was an error parsing the XML.
  */
-- (instancetype)initWithSVGData:(NSData *)svgData;
+- (instancetype)initWithName:(NSString *)name data:(NSData *)svgData;
 
 /**
  *  Creates a new CGPath by adding subpaths created from iterating over `shapes`.

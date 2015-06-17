@@ -20,12 +20,14 @@
 
 #pragma mark - Public
 
-- (instancetype)initWithSVGData:(NSData *)svgData
+- (instancetype)initWithName:(NSString *)name data:(NSData *)svgData
 {
     self = [super init];
     if (!self) {
         return nil;
     }
+    
+    _name = name;
     
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:svgData];
     parser.delegate = self;
