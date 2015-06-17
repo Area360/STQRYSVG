@@ -36,13 +36,18 @@ static NSMutableDictionary *_cachedSVGPaths;
     
     if (!CGSizeEqualToSize(size, CGSizeZero)) {
         CGPathRef path = [svgModel combinedPathsWithTransform:NULL];
-        transform = [self scaledPath:path toSize:size];
-        t = &transform;
+        CGRect boundingRect = CGPathGetPathBoundingBox(path);
         CGPathRelease(path);
+        
+        transform = [self transformForScalingRect:boundingRect toSize:size];
+        t = &transform;
+        
+        CGFloat scaleFactor = [self aspectFitScaleFactorForSize:boundingRect.size scalingToSize:size];
+        CGSize scaledSize = CGSizeApplyAffineTransform(boundingRect.size, CGAffineTransformMakeScale(scaleFactor, scaleFactor));
+        size = CGSizeMake(MIN(size.width, scaledSize.width), MIN(size.height, scaledSize.height));
     }
     
     UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-    
     [svgModel renderInContext:UIGraphicsGetCurrentContext() transform:t];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -64,11 +69,18 @@ static NSMutableDictionary *_cachedSVGPaths;
     return [[STQRYSVGModel alloc] initWithSVGData:[NSData dataWithContentsOfURL:url]];
 }
 
-+ (CGAffineTransform)scaledPath:(CGPathRef)path toSize:(CGSize)targetSize
++ (CGFloat)aspectFitScaleFactorForSize:(CGSize)size1 scalingToSize:(CGSize)size2
 {
-    CGRect boundingRect = CGPathGetPathBoundingBox(path);
-    CGFloat scaleFactor = (boundingRect.size.width / boundingRect.size.height > targetSize.width / targetSize.height) ? (targetSize.width / boundingRect.size.width) : (targetSize.height / boundingRect.size.height);
-    return CGAffineTransformConcat(CGAffineTransformMakeTranslation(-boundingRect.origin.x, -boundingRect.origin.y), CGAffineTransformMakeScale(scaleFactor, scaleFactor));
+    CGFloat w1 = size1.width, h1 = size1.height, w2 = size2.width, h2 = size2.height;
+    return (w1 / h1 > w2 / h2) ? (w2 / w1) : (h2 / h1);
+}
+
++ (CGAffineTransform)transformForScalingRect:(CGRect)boundingRect toSize:(CGSize)targetSize
+{
+    CGFloat x = boundingRect.origin.x, y = boundingRect.origin.y;
+    CGFloat scale = [self aspectFitScaleFactorForSize:boundingRect.size scalingToSize:targetSize];
+    return CGAffineTransformConcat(CGAffineTransformMakeTranslation(-x, -y), CGAffineTransformMakeScale(scale, scale));
+//    return CGAffineTransformScale(CGAffineTransformMakeTranslation(-x, -y), scale, scale);
 }
 
 #pragma mark - Caching
