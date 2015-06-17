@@ -17,20 +17,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="536" translatesAutoresizingMaskIntoConstraints="NO" id="Wgt-DD-w8I">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="svgImageSize">
-                                        <size key="value" width="200" height="200"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wgt-DD-w8I">
+                                <rect key="frame" x="0.0" y="332" width="600" height="268"/>
                             </imageView>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m37-eC-wF9">
+                                <rect key="frame" x="0.0" y="64" width="600" height="268"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="Wgt-DD-w8I" secondAttribute="centerY" constant="-32" id="9eq-kA-0Ww"/>
                             <constraint firstAttribute="centerX" secondItem="Wgt-DD-w8I" secondAttribute="centerX" id="Klh-QQ-CC0"/>
+                            <constraint firstItem="m37-eC-wF9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Ryx-Oo-oau"/>
+                            <constraint firstItem="Wgt-DD-w8I" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="afD-2x-8Sw"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Wgt-DD-w8I" secondAttribute="bottom" id="kUU-wk-NDj"/>
+                            <constraint firstItem="Wgt-DD-w8I" firstAttribute="top" secondItem="m37-eC-wF9" secondAttribute="bottom" id="nQ0-WL-GwH"/>
+                            <constraint firstAttribute="trailing" secondItem="Wgt-DD-w8I" secondAttribute="trailing" id="o4h-Ft-xxW"/>
+                            <constraint firstAttribute="trailing" secondItem="m37-eC-wF9" secondAttribute="trailing" id="q7f-4w-biO"/>
+                            <constraint firstItem="m37-eC-wF9" firstAttribute="height" secondItem="Wgt-DD-w8I" secondAttribute="height" id="xr2-1F-pRP"/>
+                            <constraint firstItem="m37-eC-wF9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yFz-gS-55Q"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9eq-kA-0Ww"/>
+                                <exclude reference="Klh-QQ-CC0"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Ynh-Ra-T4D">
                         <barButtonItem key="rightBarButtonItem" title="Next" id="1rH-9p-cg6">
@@ -41,6 +54,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="Wgt-DD-w8I" id="9jd-MK-ndk"/>
+                        <outlet property="webView" destination="m37-eC-wF9" id="hUM-NL-Qgr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
