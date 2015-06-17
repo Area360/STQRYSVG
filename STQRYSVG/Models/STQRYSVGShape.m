@@ -316,19 +316,30 @@ NS_INLINE Class ClassFromSVGShapeType(STQRYSVGShapeType type)
 
 - (void)addToPath:(CGMutablePathRef)path transform:(CGAffineTransform *)transform
 {
-    NSArray *points = [self.attributes[@"points"] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSArray *validPoints = [points filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *str, NSDictionary *bindings) {
-        return ([str rangeOfString:@","].location != NSNotFound);
-    }]];
+    NSCharacterSet *numberSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789+-.eE"];
+    NSScanner *scanner = [NSScanner scannerWithString:self.attributes[@"points"]];
+    scanner.charactersToBeSkipped = [numberSet invertedSet];
     
-    [validPoints enumerateObjectsUsingBlock:^(NSString *pointString, NSUInteger idx, BOOL *stop) {
-        NSArray *xyPoint = [pointString componentsSeparatedByString:@","];
-        CGFloat x = [xyPoint[0] doubleValue];
-        CGFloat y = [xyPoint[1] doubleValue];
-        
-        if (idx == 0) CGPathMoveToPoint   (path, transform, x, y);
-        else          CGPathAddLineToPoint(path, transform, x, y);
-    }];
+    NSMutableArray *points = [NSMutableArray array];
+    while (!scanner.isAtEnd) {
+        double val;
+        if ([scanner scanDouble:&val]) {
+            [points addObject:@(val)];
+        }
+    }
+    
+    NSNumber *x;
+    BOOL first = YES;
+    for (NSNumber *xy in points) {
+        if (!x) {
+            x = xy;
+        } else {
+            if (first) CGPathMoveToPoint   (path, transform, [x doubleValue], [xy doubleValue]);
+            else       CGPathAddLineToPoint(path, transform, [x doubleValue], [xy doubleValue]);
+            first = NO;
+            x = nil;
+        }
+    }
 }
 
 @end
