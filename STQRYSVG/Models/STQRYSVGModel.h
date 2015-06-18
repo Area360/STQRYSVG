@@ -22,6 +22,13 @@
 @property (nonatomic, copy, readonly) NSString *name;
 
 /**
+ *  The attribute tags that are supported and used by instances of this model. Any tags that are not in this set are not honoured and ignored.
+ *
+ *  @return A set of supported attributes.
+ */
++ (NSSet *)supportedAttributeTags;
+
+/**
  *  Initializes a new SVG model with XML data.
  *
  *  @param name    The name of this model.

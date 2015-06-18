@@ -20,6 +20,11 @@
 
 #pragma mark - Public
 
++ (NSSet *)supportedAttributeTags
+{
+    return [NSSet setWithObjects:@"fill", @"stroke", @"fill-rule", @"fill-opacity", @"stroke-opacity", @"stroke-width", @"stroke-linecap", @"stroke-linejoin", @"stroke-miterlimit", @"transform", nil];
+}
+
 - (instancetype)initWithName:(NSString *)name data:(NSData *)svgData
 {
     self = [super init];
@@ -96,6 +101,13 @@
     return t2 ? CGAffineTransformConcat(t1, *t2) : t1;
 }
 
+- (void)removeUnsupportedAttributeTags:(NSMutableDictionary *)attributes
+{
+    NSMutableSet *unsupportedKeys = [NSMutableSet setWithArray:attributes.allKeys];
+    [unsupportedKeys minusSet:self.class.supportedAttributeTags];
+    [attributes removeObjectsForKeys:unsupportedKeys.allObjects];
+}
+
 - (NSDictionary *)combineGroupAttributesFromDictionary:(NSDictionary *)attributes
 {
     NSMutableDictionary *sharedAttributes = [[self.groups lastObject] mutableCopy];
@@ -121,7 +133,9 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
     if ([elementName isEqualToString:@"g"] || [elementName isEqualToString:@"svg"]) {
-        attributeDict = [self combineGroupAttributesFromDictionary:attributeDict];
+        NSMutableDictionary *supportedAttributes = [attributeDict mutableCopy];
+        [self removeUnsupportedAttributeTags:supportedAttributes];
+        attributeDict = [self combineGroupAttributesFromDictionary:supportedAttributes];
         [self.groups addObject:attributeDict];
     } else {
         attributeDict = [self combineGroupAttributesFromDictionary:attributeDict];
