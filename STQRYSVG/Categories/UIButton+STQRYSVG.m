@@ -33,7 +33,7 @@
 {
     objc_setAssociatedObject(self, @selector(svgImageSize), [NSValue valueWithCGSize:svgImageSize], OBJC_ASSOCIATION_COPY_NONATOMIC);
     if (self.svgImageName) {
-      [self setImage:[UIImage stqry_imageWithSVGNamed:svgImageName size:self.svgImageSize] forState:UIControlStateNormal];
+      [self setImage:[UIImage stqry_imageWithSVGNamed:self.svgImageName size:svgImageSize] forState:UIControlStateNormal];
     }
 }
 
