@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
     s.summary                = 'Renders SVG shapes and paths to UIImage objects. Supports IBInspectable for UIImageViews in Interface Builder.'
     s.platform               = :ios
     s.ios.deployment_target  = '7.0'
-    s.version                = '0.0.1'
+    s.version                = '0.0.2'
     s.homepage               = 'https://github.com/stqry/STQRYSVG'
     s.authors                = { 'Jake' => 'jake.bellamy@stqry.com' }
     s.license                = 'BSD'
